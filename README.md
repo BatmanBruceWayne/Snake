@@ -1,2 +1,2 @@
-# FlappyBird
-A clone game of Flappy Bird 
+# Snake
+snake game
