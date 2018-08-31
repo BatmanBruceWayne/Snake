@@ -1,5 +1,6 @@
 package gamescreen;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,11 +18,12 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
 	private Thread thread;
 	private int gameState = START_GAME_STATE;
 	private MainBoard mainBoard;
+	private Bait bait;
 	
 	public GameScreen(int width) {
 		thread = new Thread(this);
-		square = new Square(10, 10);
 		mainBoard = new MainBoard(width);
+		bait = new Bait((int) width/2, (int) width/2, Color.RED);
 	}
 	
 	public void startGame() {
@@ -29,7 +31,14 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void paint(Graphics g){
+		
+		System.out.println("paint");
+
+		
 		mainBoard.draw(g);
+
+		bait.draw(g);
+
 	}
 
 	@Override
@@ -43,7 +52,8 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
 //				e.printStackTrace();
 //			}
 //		}
-		repaint();
+		//repaint();
+		System.out.println("run");
 		
 	}
 

@@ -1,5 +1,6 @@
 package gamescreen;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class MainBoard {
 			ArrayList<Square> tmp = new ArrayList<>();
 			for(int j=0; j < this.SQUARE_WIDTH; j++) {
 				y += 30;
-				tmp.add(new Square(x, y));
+				tmp.add(new Square(x, y, Color.GRAY));
 			}
 			board.add(tmp);
 		}
