@@ -21,12 +21,11 @@ public class GameWindow extends JFrame implements KeyListener{
 		addKeyListener(this);
 		add(gameScreen);
 		setVisible(true);
-
+		this.snake = gameScreen.getSnake();
 	}
 	
 	public static void main(String[] args) {  
 		GameWindow f=new GameWindow();
-		//f.startGame();
 	}
 
 	@Override
@@ -73,6 +72,14 @@ public class GameWindow extends JFrame implements KeyListener{
 		// TODO Auto-generated method stub
 		isKeyPressed = false;
 		System.out.println("release");
+		if (gameScreen.getState() == 1) {
+			try {
+				snake.update(snake.getDimension());
+
+			} catch(NullPointerException ex) {
+				ex.printStackTrace();
+			}
+		}
 		
 	}
 }

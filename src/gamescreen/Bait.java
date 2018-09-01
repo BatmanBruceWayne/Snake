@@ -21,4 +21,16 @@ public class Bait extends Character{
 		bait.draw(g);
 	}
 	
+	public int getPosX() {
+		return this.bait.getX();
+	}
+	
+	public int getPosY() {
+		return this.bait.getY();
+	}
+	
+	public void update() {
+		
+	}
+	
 }

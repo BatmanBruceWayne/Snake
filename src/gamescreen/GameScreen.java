@@ -25,7 +25,7 @@ public class GameScreen extends JPanel implements Runnable {
 		thread = new Thread(this);
 		mainBoard = new MainBoard(width);
 		bait = new Bait((int) width/2, (int) width/2, Color.RED);
-		snake = new Snake(Color.YELLOW);
+		snake = new Snake(Color.YELLOW, this.bait);
 	}
 	
 	public void startGame() {
@@ -57,17 +57,19 @@ public class GameScreen extends JPanel implements Runnable {
 	
 	public void update() {
 		snake.update(snake.getDimension());
+		if(snake.isEaten()) {
+			snake.increase();
+		}
 	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true) {
-			System.out.println(this.gameState);
 			update();
 			repaint();
 			try {
-				Thread.sleep(500);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -81,5 +83,11 @@ public class GameScreen extends JPanel implements Runnable {
 	public void setState(int state) {
 		this.gameState = state;
 	}
+	
+	public Snake getSnake() {
+		return this.snake;
+	}
+	
+	
 
 }
