@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class GameScreen extends JPanel implements Runnable, KeyListener {
+public class GameScreen extends JPanel implements Runnable {
 	
 	private static final int START_GAME_STATE = 0;
 	private static final int GAME_PLAYING_STATE = 1;
@@ -19,60 +19,67 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
 	private int gameState = START_GAME_STATE;
 	private MainBoard mainBoard;
 	private Bait bait;
+	private Snake snake;
 	
 	public GameScreen(int width) {
 		thread = new Thread(this);
 		mainBoard = new MainBoard(width);
 		bait = new Bait((int) width/2, (int) width/2, Color.RED);
+		snake = new Snake(Color.YELLOW);
 	}
 	
 	public void startGame() {
+		System.out.println("start");
 		thread.start();
 	}
 	
 	public void paint(Graphics g){
-		
 		System.out.println("paint");
-
 		
-		mainBoard.draw(g);
+		switch (gameState) {
+			case START_GAME_STATE:
+				mainBoard.draw(g);
+				bait.draw(g);
+				snake.draw(g);
+				break;
+			case GAME_PLAYING_STATE:
+				mainBoard.draw(g);
+				bait.draw(g);
+				snake.draw(g);
+				break;
+			case GAME_OVER_STATE:
+			
+		}
+		
+		
 
-		bait.draw(g);
-
+	}
+	
+	public void update() {
+		snake.update(snake.getDimension());
 	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-//		while(true) {
-//			repaint();
-//			try {
-//				Thread.sleep(20);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
-		//repaint();
-		System.out.println("run");
-		
+		while(true) {
+			System.out.println(this.gameState);
+			update();
+			repaint();
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	
+	public int getState() {
+		return this.gameState;
 	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	
+	public void setState(int state) {
+		this.gameState = state;
 	}
 
 }

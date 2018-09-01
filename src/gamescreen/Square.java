@@ -20,4 +20,16 @@ public class Square {
 		g.fillRect(this.POS_X, this.POS_Y, this.width, this.height);
 		
 	}
+	
+	public void setPos(int x, int y) {
+		POS_X = x; POS_Y = y;
+	}
+	
+	public int getX() {
+		return POS_X;
+	}
+	
+	public int getY() {
+		return POS_Y;
+	}
 }
