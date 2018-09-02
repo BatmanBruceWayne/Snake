@@ -41,19 +41,17 @@ public class GameWindow extends JFrame implements KeyListener{
 			isKeyPressed = true;
 			switch (gameScreen.getState()) {
 			case 0:
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				if (e.getKeyCode() == KeyEvent.VK_SPACE && gameScreen.getState() == 0) {
 					gameScreen.setState(1);
-					System.out.println("space");
 					gameScreen.startGame();
 				}
 				break;
 			case 1:
-				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					System.out.println("down");
+				if (e.getKeyCode() == KeyEvent.VK_DOWN && snake.getDimension() != 2) {
 					snake.update(2);
-				} else if(e.getKeyCode() == KeyEvent.VK_UP) snake.update(0);
-				else if(e.getKeyCode() == KeyEvent.VK_LEFT) snake.update(3);
-				else if(e.getKeyCode() == KeyEvent.VK_RIGHT) snake.update(1);
+				} else if(e.getKeyCode() == KeyEvent.VK_UP && snake.getDimension() != 0) snake.update(0);
+				else if(e.getKeyCode() == KeyEvent.VK_LEFT && snake.getDimension() != 3) snake.update(3);
+				else if(e.getKeyCode() == KeyEvent.VK_RIGHT && snake.getDimension() != 1) snake.update(1);
 				break;
 			case 2:
 //				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -71,7 +69,6 @@ public class GameWindow extends JFrame implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		isKeyPressed = false;
-		System.out.println("release");
 		if (gameScreen.getState() == 1) {
 			try {
 				snake.update(snake.getDimension());

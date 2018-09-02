@@ -13,6 +13,8 @@ public class GameScreen extends JPanel implements Runnable {
 	private static final int START_GAME_STATE = 0;
 	private static final int GAME_PLAYING_STATE = 1;
 	private static final int GAME_OVER_STATE = 2;
+    public static int FPS = 6;
+
 	
 	private Square square;
 	private Thread thread;
@@ -29,12 +31,10 @@ public class GameScreen extends JPanel implements Runnable {
 	}
 	
 	public void startGame() {
-		System.out.println("start");
 		thread.start();
 	}
 	
 	public void paint(Graphics g){
-		System.out.println("paint");
 		
 		switch (gameState) {
 			case START_GAME_STATE:
@@ -50,14 +50,12 @@ public class GameScreen extends JPanel implements Runnable {
 			case GAME_OVER_STATE:
 			
 		}
-		
-		
-
 	}
 	
 	public void update() {
 		snake.update(snake.getDimension());
 		if(snake.isEaten()) {
+			System.out.println("eat");
 			snake.increase();
 		}
 	}
@@ -65,14 +63,26 @@ public class GameScreen extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		long T = 1000/FPS;
+        long TimeBuffer = T/2;
+        
+        long BeginTime = System.currentTimeMillis();
+        long EndTime;
+        long sleepTime;
+        
 		while(true) {
 			update();
 			repaint();
+			EndTime = System.currentTimeMillis();
+	        sleepTime = T - (EndTime - BeginTime);
+	        if(sleepTime < 0) sleepTime = TimeBuffer;
 			try {
-				Thread.sleep(200);
+				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+            BeginTime = System.currentTimeMillis();
+
 		}
 	}
 	

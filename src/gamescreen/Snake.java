@@ -27,7 +27,8 @@ public class Snake extends Character{
 	}
 	
 	public void update(int dimension) {
-		if(Math.abs(dimension - this.getDimension()) != 2) {
+		int step = Math.abs(dimension - this.getDimension());
+		if(step != 2) {
 			switch(dimension) {
 				case 0:{
 					SNAKE_Y -= 30;
@@ -100,6 +101,7 @@ public class Snake extends Character{
 		}
 		Square head = new Square(SNAKE_X, SNAKE_Y, color);
 		snake.add(0, head);
+		System.out.println(snake.size());
 	}
 	
 }
